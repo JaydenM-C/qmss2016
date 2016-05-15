@@ -9,8 +9,8 @@ with open(infile) as f:
         cols.append(row)
 
 print "#NEXUS"
-print "Begin data;"
-print "Dimensions ntax=%i nchar=%i;" % (len(cols), len(cols[0]))
+print "Begin character;"
+print "Dimensions ntax=%i nchar=%i;" % (len(cols)-1, len(cols[0])-1)
 print "Format datatype=Standard missing=? gap=-;"
 print "Matrix"
 for col in cols[1:]: # first line is headers
