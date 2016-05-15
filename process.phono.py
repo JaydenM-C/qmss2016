@@ -2,53 +2,6 @@
 
 import json
 
-IPA_MAP = {
-	u'∅'	: None,
-	'p'		: "voiceless bilabial stop",
-	'b'		: "voiced bilabial stop",
-	u'pʰ'	: "aspirated voiceless bilabial stop",
-	u'bʱ'	: "aspirated voiced bilabial stop", # glottal sign
-	't'		: "voiceless alveolar stop",
-	'd'		: "voiced alveolar stop",
-	u'dʱ'	: "aspirated alveolar stop", # glottal sign
-	'f'		: "voiceless labiodental fricative",
-	'v'		: "voiced labiodental fricative",
-	u'tʰ'	: "aspirated voiceless alveolar stop",
-	u'θ'	: "voiceless dental fricative",
-	u'ð'	: "voiced dental fricative",
-	'h'		: "voiceless glottal fricative",
-	'c'		: "voiceless palatal stop",
-	u'ʦ'	: "voiceless alveolar affricate",
-	u'ʤ'	: "voiced alveolar affricate",
-	'k'		: "voiceless velar stop",
-	u'kʰ'	: "aspirated voiceless velar stop",
-	'g'		: "voiced velar stop",
-	u'ʃ'	: "voiceless palato-alveolar fricative",
-	u'ʒ'	: "voiced palato-alveolar fricative",
-	's'		: "voiceless alveolar fricative",
-	'z'		: "voiced alveolar fricative",
-	u'ɕ'	: "voiceless alveolo-palatal fricative",
-	'x'		: "voiceless velar fricative",
-	u'ʣ'	: "voiced alveolar affricate",
-	u'ɦ'	: "voiced glottal fricative",
-	u'ʧ'	: "voiceless postalveolar affricate",
-	u'ɟ'	: "voiced palatal stop",
-	u'gʱ'	: "aspirated voiced velar stop", # glottal sign
-	u'kʷ'	: "labialized voiceless velar stop",
-	u'hʷ'	: "labialized voiceless glottal fricative",
-	'ku'	: "vocalized voiceless velar stop",
-	'w'		: "labiovelar approximant",
-	u'ʂ'	: "voiceless retroflex fricative",
-	'j'		: "palatal approximant",
-	'y'		: "close front round vowel",
-	u'ʋ'	: "labiodental approximant",
-	'm'		: "bilabial nasal",
-	'n'		: "alveolar nasal",
-	u'ɲ'	: "palatal nasal",
-	'l'		: "alveolar lateral approximant",
-	'r'		: "alveolar trill",
-}
-
 def run():
 	# read mapping
 	handler = file('ipa.json')
@@ -75,7 +28,7 @@ def run():
 			fields = line.split('\t')
 			
 			# first field is reconstructed PIE
-			pie = '*%s' % fields[0]
+			pie = '%s' % fields[0]
 			
 			# map ie-languagess reflexes
 			reflexes = [IPA[f]['features'] for f in fields[1:]]
@@ -89,7 +42,7 @@ def run():
 			# output logical vectors for each context/feature in the languages
 			for feat in used_feats:
 				# build row name
-				row_name = '%s_%s' % (pie, feat[1:]) # remove '+'
+				row_name = '%s.%s' % (pie, feat[1:]) # remove '+'
 				
 				# build logical vector
 				v = []
