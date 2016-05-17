@@ -12,6 +12,8 @@ features
 * piedata.csv - the result of process.phono.py processing
 * csvtransp.py - an utility script to "transpose" a CSV file: `piedata.csv` is organized with contexts/features as rows, which 
 is easier for humans to understand, but philogenetic analysis will work better with languages as observations
+* csv2nexus.py - an utility script to translate a binary matrix CSV to a NEXUS file
+* pie.nexus - the result of csv2nexus.py on the transposed CSV
 
 There are also file for preparing future work:
 
