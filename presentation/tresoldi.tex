@@ -28,20 +28,20 @@
 \section{The questions and the problems} 
 \frame{\frametitle{The questions and the problems}
 \begin{itemize}
-\item Is it possible (and useful) to integrate phonology in language phylogeny?
+\item Is it possible (and useful) to use phonology in language phylogeny?
 	\begin{itemize}
 	\item Phonology has a high rate of evolution, but borrowing is rare
-	\item Diachronic and synchronic data allow to estimate the probability of future changes
+	\item Diachronic and synchronic data for estimation of transition probabilities
 	\end{itemize}
-\item Hypothesis: using distinct features (``the most basic unit of analysis in
-      phonetic structures''), adapting Roman Jakobson \textit{et al.} (1941--1956),
-	  Chomsky and Halle (1968--1983), and, in particular, Ladefoged (1971; 1993)
+\item Hypothesis: language philogeny using distinct features (``the most basic unit of analysis in
+      phonetic structures''), adapted from Jakobson \textit{et al.} (1941--1956),
+	  Chomsky \&{} Halle (1968--1983), and, in particular, Ladefoged (1971; 1993)
 	\begin{itemize}
 	\item Pros: binary (and mostly non-exclusive) features (no dummy variables!),
-	      single description for vowel and consonants
+	      single model for vowels and consonants
+	\item Traditional reconstruction (such as for the IE family) uses words mostly as proxy
+	      for phonology, but we should combine lexical and phonological data
 	\end{itemize}
-\item Traditional reconstruction (such as for the IE family) uses words mostly as proxy for phonology,
-      but we should combine lexical and phonological data
 \end{itemize} 
 }
 
@@ -53,11 +53,11 @@
 \centering
 \caption{Phonetic reflexes (snippet)}
 \label{table-phonemes}
-\begin{tabular}{lllll}
-PIE & Old Irish & Latin & Old English & Lithuanian \\
-*p   & $\emptyset$         & p     & f           & p          \\
-*\'{g}\textsuperscript{h}i & g         & h     & g           & \textipa{Z}          \\
-*k\textsuperscript{w}  & k         & k\textsuperscript{w}    & h\textsuperscript{w}          & k         
+\begin{tabular}{lllllll}
+PIE & O. Irish & Latin & O. English & Lith. & Toch. B & Arm. \\
+*p   & $\emptyset$         & p     & f           & p     & p  & h   \\
+*\'{g}\textsuperscript{h}i & g         & h     & g           & \textipa{Z}   & \textipa{C}    & \textdzlig   \\
+*k\textsuperscript{w}  & k         & k\textsuperscript{w}    & h\textsuperscript{w}          & k & k   & k\textsuperscript{h}     
 \end{tabular}
 \end{table}
 
@@ -81,23 +81,23 @@ Lithuanian  & F     & T       & T     & T       & T
 \includegraphics[scale=0.41]{tree.png}
 }
 
-\section{Conclusion} 
-\frame{\frametitle{Conclusion}
+\section{Final words} 
+\frame{\frametitle{Final words}
 \begin{itemize}
 \item Without constrains and additional data, the tree is
       mirroring similarities in phoneme inventories, not language history
 
-\item Ancestral State Recostruction -- do results from past methods match those of current ones?
+\item Ancestral State Recostruction -- do results from past methods match those of phylogenetic ones?
 \begin{itemize}
 	\item Data from MPI banks (PHOIBLE, ``Intercontinental Dictionary Series'', 
-	  ``World Loanword Database''), and paper dictionaries
-	\item Tools: phylogenetic software, lingpy
-	\item Combine known data and phylogeny to infer best model and order of ancestral state changes
+	  ``World Loanword Database''), paper dictionaries (and web scraping...)
+	\item Tools: phylogenetic software, \texttt{lingpy}
+	\item Combine known data and phylogeny to infer best model and the order of ancestral state changes
 \end{itemize}
 
 \item Code on GitHub (\url{https://github.com/tresoldi/qmss2016})
 
-\item Dreamy questions:
+\item Some bold, dreamy research questions:
 	\begin{itemize}
 	\item How confident can we be on the presence of laryngeals in PIE? What is the most likely
 	      date for their evolution? How many there were?
