@@ -49,7 +49,7 @@ def run():
 				for r in reflexes:
 					v.append('FT'[feat in r])
 				lv = ','.join(v)
-			
+				
 				buffer = '%s,%s' % (row_name, lv)
 				print buffer.encode('utf-8')
 
