@@ -1,0 +1,32 @@
+\mode<presentation>
+
+% Define colors
+\definecolor{MPG_green}{RGB}{17,102,86}
+\definecolor{MPG_grey}{RGB}{221,222,214}
+\definecolor{MPG_orange}{RGB}{160,110,27}
+
+% Theme settings
+\setbeamercolor*{title page header}{fg=white}
+\setbeamercolor*{title}{fg=white}
+\setbeamercolor*{author}{fg=white}
+\setbeamercolor*{date}{fg=white}
+
+% General settings
+\setbeamercolor{normal text}{fg=black,bg=white}
+\setbeamercolor{alerted text}{fg=MPG_orange!80!black}
+\setbeamercolor{example text}{fg=MPG_green,bg=MPG_grey!70}
+
+\setbeamercolor{structure}{fg=MPG_green}
+
+\setbeamercolor{background canvas}{parent=normal text}
+\setbeamercolor{background}{parent=background canvas}
+
+\setbeamercolor{palette primary}{fg=MPG_green,bg=MPG_grey} % changed this
+\setbeamercolor{palette secondary}{use=structure,fg=structure.fg} % changed this
+\setbeamercolor{palette tertiary}{use=structure,fg=structure.fg} % changed this
+
+% Block environment
+\setbeamercolor{block title}{fg=black,bg=structure.fg!20!bg!70!bg}
+
+\mode
+<all>

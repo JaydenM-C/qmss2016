@@ -1,0 +1,109 @@
+% Tiago Tresoldi presentation
+
+\documentclass{beamer}
+
+\usepackage{graphicx}
+
+\usepackage{./beamerthemempiis}
+
+\usepackage{colortbl}
+
+\usepackage{tipa}
+
+\usepackage{hyperref}
+
+\usepackage{amssymb}
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\begin{document}
+\title{QMSS16 Presentation: \\ Distinct Phonetic Features for Language Phylogeny}   
+\author{Tiago Tresoldi} 
+\date{May 18\textsuperscript{th}, 2016} 
+
+
+\frame{\titlepage} 
+
+
+\section{The questions and the problems} 
+\frame{\frametitle{The questions and the problems}
+\begin{itemize}
+\item Is it possible (and useful) to integrate phonology in language phylogeny?
+	\begin{itemize}
+	\item Phonology has a high rate of evolution, but borrowing is rare
+	\item Diachronic and synchronic data allow to estimate the probability of future changes
+	\end{itemize}
+\item Hypothesis: using distinct features (``the most basic unit of analysis in
+      phonetic structures''), adapting Roman Jakobson \textit{et al.} (1941--1956),
+	  Chomsky and Halle (1968--1983), and, in particular, Ladefoged (1971; 1993)
+	\begin{itemize}
+	\item Pros: binary (and mostly non-exclusive) features (no dummy variables!),
+	      single description for vowel and consonants
+	\end{itemize}
+\item Traditional reconstruction (such as for the IE family) uses words mostly as proxy for phonology,
+      but we should combine lexical and phonological data
+\end{itemize} 
+}
+
+
+
+\frame{\frametitle{The data}
+
+\begin{table}[]
+\centering
+\caption{Phonetic reflexes (snippet)}
+\label{table-phonemes}
+\begin{tabular}{lllll}
+PIE & Old Irish & Latin & Old English & Lithuanian \\
+*p   & $\emptyset$         & p     & f           & p          \\
+*\'{g}\textsuperscript{h}i & g         & h     & g           & \textipa{Z}          \\
+*k\textsuperscript{w}  & k         & k\textsuperscript{w}    & h\textsuperscript{w}          & k         
+\end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
+\caption{Distinct features of phonetic reflexes (snippet)}
+\label{table-reflexes}
+\begin{tabular}{llllllll}
+            & p.ant & p.obstr & p.lab & \'{g}\textsuperscript{h}i.obstr & \'{g}\textsuperscript{h}i.cor \\
+Old Irish   & -     & -       & -     & T       & F           \\
+Latin       & F     & T       & T     & T       & F           \\
+Old English & T     & T       & F     & T       & F           \\
+Lithuanian  & F     & T       & T     & T       & T          
+\end{tabular}
+\end{table}
+
+}
+
+\section{The (very, very first) results}
+\frame{\frametitle{The (very, very first) results}
+\includegraphics[scale=0.41]{tree.png}
+}
+
+\section{Conclusion} 
+\frame{\frametitle{Conclusion}
+\begin{itemize}
+\item Without constrains and additional data, the tree is
+      mirroring similarities in phoneme inventories, not language history
+
+\item Ancestral State Recostruction -- do results from past methods match those of current ones?
+\begin{itemize}
+	\item Data from MPI banks (PHOIBLE, ``Intercontinental Dictionary Series'', 
+	  ``World Loanword Database''), and paper dictionaries
+	\item Tools: phylogenetic software, lingpy
+	\item Combine known data and phylogeny to infer best model and order of ancestral state changes
+\end{itemize}
+
+\item Code on GitHub (\url{https://github.com/tresoldi/qmss2016})
+
+\item Dreamy questions:
+	\begin{itemize}
+	\item How confident can we be on the presence of laryngeals in PIE? What is the most likely
+	      date for their evolution? How many there were?
+	\item How confident can we be of Etruscan as a colonial Luwian language? (cf. Woudhuizen, 2008)
+	\end{itemize}
+\end{itemize} 
+}
+
+\end{document}

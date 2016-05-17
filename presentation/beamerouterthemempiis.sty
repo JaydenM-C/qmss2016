@@ -1,0 +1,39 @@
+\mode<presentation>
+
+% Frame title
+% Frame title
+% warning: Margins don't make sense...
+\setbeamersize{text margin left=6.5mm, text margin right=6.5mm, sidebar width left=0mm, sidebar width right=0mm}
+
+\defbeamertemplate*{frametitle}{mpiis}[1][]
+{
+\begin{beamercolorbox}[wd=\paperwidth,ht=1.5cm]{frametitle} 
+  \begin{tikzpicture}[remember picture, overlay]
+  %\useasboundingbox[fill=white](0,0) rectangle(\the\paperwidth,1.5);
+    \node[rectangle,left color=MPG_grey!50,right color=MPG_grey!50,anchor=west,minimum width=\paperwidth, minimum height=16.5mm] (titlebox) at 
+    (current page.north west){};
+    \node[inner xsep=0pt, anchor=north west, MPG_green,yshift=-1.8mm, xshift=3mm,font=\large] (frtitletext) at (current page.north west){\insertframetitle};
+    \ifx\insertframesubtitle\empty{}\else{%
+      \node[inner xsep=0pt, anchor=north west, MPG_green,yshift=-1.8mm, xshift=3mm,font=\large] (frtitletext) at (current page.north west){\insertframetitle};%
+      \node[inner xsep=0pt, rectangle, left color=MPG_green!70,right color=MPG_green!70, anchor=north west,minimum width = \paperwidth, minimum height=5mm] (subtitlebox) at (titlebox.south west){};
+      \node[inner xsep=0pt, anchor= north west, MPG_grey,xshift=3mm] (subtitletext) at (subtitlebox.north west){\usebeamerfont{framesubtitle}\insertframesubtitle};}%
+    \fi
+  \end{tikzpicture}
+\end{beamercolorbox}
+}
+
+\defbeamertemplate*{footline}{my footline}
+{
+    \ifnum \insertpagenumber=1
+    \else
+      \begin{tikzpicture}[remember picture, overlay]
+              %\node [rectangle, shading=axis,left color=white, right color=MPG_green, anchor=south east, minimum width=0.75\paperwidth, minimum %height=9.2mm] (footbox) at (current page.south east){};
+              \node[inner sep=0pt,anchor=south east,yshift=2.1mm,xshift=-3.6mm] (logo) at (current page.south east)
+		{\includegraphics[height=7mm]{logo_notext.pdf}};
+      \end{tikzpicture}
+    \fi
+}
+
+
+
+\mode<all>

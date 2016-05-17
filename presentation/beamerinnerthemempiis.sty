@@ -1,0 +1,36 @@
+\mode<presentation>
+\usetikzlibrary{positioning,calc,fadings,backgrounds,shadows.blur}
+\usepackage{pgfkeys}
+
+
+\tikzfading[name=fade up,
+  bottom color=transparent!30, top color=transparent!100]
+
+% Title page 
+\defbeamertemplate*{title page}{mpiis}[1]
+{ 
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[inner sep=0pt,anchor=center] (picture) at (current page.center)
+      {\includegraphics[height=\paperheight]{#1}};
+    \fill[color=MPG_green, blur shadow={shadow yshift=0.5ex, shadow xshift=0ex}] (current page.south west) rectangle (current page.east);
+    %\fill[black,path fading=fade up] (current page.west) rectangle ($(current page.east)+(0,0.5mm)$);
+    \node[inner sep=0pt,anchor=south east,yshift=4.3mm,xshift=-8mm] (titlelogo) at (current page.south east) {\includegraphics[height=15mm]{logo_white.pdf}};
+    \node[inner sep=0pt,anchor=north west, yshift=-4.3mm, xshift=8mm,text width=112mm] (title) at (current page.west)
+    {\begin{beamercolorbox}[width=\textwidth]{title}
+	\usebeamercolor[fg]{title}\usebeamerfont{title}\inserttitle%
+     \end{beamercolorbox}
+    };
+    \node[inner sep=0pt,anchor=south west,yshift=4.3mm, xshift=8mm,text width=112mm] (author) at (current page.south west)
+    {\begin{beamercolorbox}[wd=\textwidth]{author}
+      \usebeamerfont{author}\insertauthor%
+    \end{beamercolorbox}
+    \vskip1mm
+    \begin{beamercolorbox}[wd=\textwidth]{date}
+      \usebeamerfont{date}\insertdate%
+    \end{beamercolorbox}};
+
+  \end{tikzpicture}
+}
+
+\mode
+<all>
