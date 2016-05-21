@@ -1,0 +1,135 @@
+---
+title: "rphylo demonstration"
+author: Tiago Tresoldi
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+```
+
+## rphylo
+
+This document demonstrates how to use `rphilo`, a script for the generation of random data suitable for testing tools for phylogenetic analysis. The function was developed to be at the same time flexible, allowing to specify details of the random generation, and easy to use, with many standard values that should result in trees that approximate those modelling human behaviour (including language evolution).
+
+## How to use
+
+The code is provided in a single file, that must be loaded inside R.
+
+```{r}
+source('rphylo.R')
+```
+
+There is a single main function, `rphilo()`, that can be called without any argument and will return a dataframe with data for philogenetic analysis, including the actual depth of each observation in the tree (variable `depth`) and the actual ancestor for any given node (variable `ancestral`)
+
+As in the case for every random generation, a seed can be specified in R to guarantee reproducible results.
+
+NOTE: the `kable()` function is not parte of `rphylo`, and is only needed for pretty formatting on the table in the HTML document.
+
+```{r, results='asis'}
+set.seed(1); t <- rphylo()
+kable(t)
+```
+
+## How it works
+
+The main function `rphylo()` creates a new data frame and inserts a new observation, the root node. The root contains all variables specified when the function is called, defaulting to the internal option above if none is provided.
+
+After the root is created, the function will, for the number of specified levels (`depth"`), mutate all observations from the previous level into a random number of new observations, whose values are randomly choosen according to the specified parameters for random data generation. The function guarantees that the first node (the "root") will have at least one descendent, but every other observation might result without descendents. The number of descendents for each node (`split`) is randomly chosen according to parameters `split.mean` and `split.sd`, which allow users to specify a larger number of descendents and/or a fixed number of descendants.
+
+```{r, results='asis'}
+# larger number of descendats
+set.seed(1)
+t <- rphylo(depth=3, split.mean=4)
+kable(t)
+
+# 2 descedants for each node
+set.seed(1)
+t <- rphylo(depth=3, split.mean=2, split.sd=0)
+kable(t)
+```
+
+Tables generated with `rphylo` can contain as many variables as needed, useful for stress testing phylogenetic software. Variables can be of four different types:
+
+* binary/logic (code `"b"`)
+* state (code `"s"`) -- categorical variables represented by numeric integer index; binary variables are internally treated as a special case state variable, with only two levels (TRUE and FALSE)
+* continous (code `"c"`) -- continous numerical variables, created by normal distribution with an initial mean of zero
+* random (code `"r"`) -- completely random values, normally distributed from zero to one, which can be used as confounding variables
+
+The number and type of variables is passed to the function `rphylo()` as a vector of characters `vars`; a corresponding vector of numeric values `comp` is necessary to inform the parameters of the random generation (currently, number of states for state variables and standard deviation from zero for continous variables). Here is an example using the default values:
+
+```{r, results='asis'}
+set.seed(1); t <- rphylo(vars=c('r', 'b', 'b', 'b', 's', 'c'),
+                         comp=c( NA,  NA, NA,   NA,   7,  10))
+kable(t)
+```
+
+Binary and state variables are generated from matrices of transition probability randomly generated during execution (I'll add user matrix specification in the future). To peek behind the courtains, here is the example of a matrix of transition generated for a 3-level state variable using the same code; the only difference for binary variables, which are 2-state, is that the diagonal defaults to actual value passed by the user, and not to half of it (transition matrices diagonals are passed to the `rphylo()` function with the `tm.diag` argument):
+
+```{r, results='asis'}
+# set random seed for reproduction
+set.seed(1)
+
+# generate matrix using the same code
+num.states <- 3
+tm.diag <- 0.95
+m <- matrix(runif(num.states * num.states),
+            nrow = num.states,
+            ncol = num.states)
+diag(m) <- num.states * (tm.diag / 2)
+colnames(m) <- 1:num.states
+rownames(m) <- 1:num.states
+
+# show the transition matrix
+kable(m)
+
+# show the proportional transition matrix
+kable(prop.table(m, 1))
+```
+
+The second table illustrates how, for this random model, a state 1 has 43.47% of probability of transition to the same state (i.e., no change), while state 2 has 15.13% of probability of transition to state 1 and 26.88% of transition to state 3.
+
+Continous variables are the closer integer value to a randomly selected value extracted from a normal distribution with standard deviation specified in `comp` and mean equal to the value for the ancestral, or 0.0 for the root.
+
+All observations also include a random, but hopefully easily pronounceable, name, generated with function `rlabel()` included in `rphylo`. These row names are guaranteed to be unique and were included because, unlike variable names, its approximation to natural language words makes it easier for researches to study the randomly generated data, particularly when tree reconstructions go wrong, and to locate specific data points.
+
+## How to use the data
+
+Data returned from `rphylo()` can be used in most R packages and external software for phylogenetic analysis, provided that the necessary data manipulation is performed.
+
+One important note is, when testing the performance, to first make a copy of the data and exclude the `depth` and `ancestral` columns, which contain the "answer" to the phylogenetic reconstruction.
+
+```{r, results='asis'}
+set.seed(1)
+data <- rphylo()
+data$depth <- NULL # remove 'depth' column
+data$ancestral <- NULL # remove 'ancestral' column
+kable(data)
+```
+
+A second note is to consider how many and which observations to use. For example,
+before removing the `depth` column you might want to use it to filter only the most recent observations, removing from the data the oldest ones (remember that the largest depth will be the one specified when calling `rphylo()` *minus one*, as the root will have depth zero):
+
+```{r, results='asis'}
+set.seed(1)
+data <- rphylo()
+data <- subset(data, depth>=3)
+data$depth <- NULL # remove 'depth' column
+data$ancestral <- NULL # remove 'ancestral' column
+kable(data)
+```
+
+As any R dataframe, the results of `rphylo()` can be exported to almost any suitable format, particularly CSV (with `write.csv()`) and NEXUS (with, among others, `write.nexus()`)
+
+## Future work
+
+* Implement more complex model which uses correlations between different variables
+* Implement simulation of borrowing/horizontal gene transfer
+* Implement new variable types, in particular one related to a Poisson distribution (with lambda specified by the user)
+* Allow users to pass their own transition matrices for binary and state variables
+* Change indexing to 1-based?
+
+# Extra
+
+For more information, please contact me at tresoldi@gmail.com
